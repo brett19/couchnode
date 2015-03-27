@@ -80,6 +80,18 @@
 #define EAI_ADDRFAMILY -9
 #endif
 
+#ifndef EAI_BADHINTS
+#define EAI_BADHINTS EAI_FAIL
+#endif
+
+#ifndef EAI_NODATA
+#define EAI_NODATA EAI_FAIL
+#endif
+
+#ifndef EAI_PROTOCOL
+#define EAI_PROTOCOL EAI_FAIL
+#endif
+
 #define OK 0
 
 #if UV_VERSION < 0x000900

@@ -480,7 +480,7 @@ void lcb_destroy(lcb_t instance)
         dset_list = (struct lcb_DURSET_st **)hashset_get_items(hs, NULL);
         if (dset_list) {
             for (ii = 0; ii < nitems; ii++) {
-                lcb_durability_dset_destroy(dset_list[ii]);
+                lcbdur_destroy(dset_list[ii]);
             }
             free(dset_list);
         }
@@ -534,6 +534,7 @@ void lcb_destroy(lcb_t instance)
     }
 
     free(instance->histogram);
+    free(instance->dcpinfo);
     memset(instance, 0xff, sizeof(*instance));
     free(instance);
 #undef DESTROY
