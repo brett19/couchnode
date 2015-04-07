@@ -92,6 +92,14 @@
 #define EAI_PROTOCOL EAI_FAIL
 #endif
 
+#ifndef EAI_OVERFLOW
+#define EAI_OVERFLOW EAI_FAIL
+#endif
+
+#ifndef EHOSTDOWN
+#define EHOSTDOWN EAI_FAIL
+#endif
+
 #define OK 0
 
 #if UV_VERSION < 0x000900
