@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Ticker Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+    .iblock {
+        float: left;
+        border: 1px solid black;
+        margin: 5px;
+        position: relative;
+        padding: 10px;
+    }
+    .block {
+        float: left;
+        border: 1px dashed black;
+        margin: 5px;
+        position: relative;
+        width: 200px;
+        padding: 4px;
+    }
+    .arbitext {
+        width: 250px;
+        height: 50px;
+    }
+    .tickers {
+        clear: both;
+    }
+    .topblock {
+        border: 1px dashed black;
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        height: 136px;
+    }
+    .topblockspace {
+        height: 148px;
+    }
+
+</style>
+<body>
+<div class="topblockspace"></div>
+<div class="topblock">
+    <div class="iblock">
+        <b>Add Ticker:</b><br />
+        Symbol: <input type="text" value="" id="addsymbol" /><br />
+        <button id="addone">Add</button>
+    </div>
+    <div class="iblock">
+        <b>Add Industry:</b><br />
+        Industry: <input type="text" value="" id="addindustry" /><br />
+        <button id="addmany">Add</button>
+    </div>
+    <div class="iblock">
+        <b>Add Arbitrary:</b><br />
+        <textarea id="addarbi" class="arbitext"></textarea><br />
+        <button id="addany">Add</button>
+    </div>
+</div>
+<div id="tickerlist">
+</div>
+<!--
+<div class="tickers">
+    <u><b>Ticker: GOOG</b></u><br />
+    <div class="block sym-GOOG">
+        <b>GOOG</b><br />
+        Google Inc.<br />
+        Information Technology<br />
+        14.44
+    </div>
+</div>
+-->
+<script type="text/javascript">
+    function watchTicker(name, query) {
+      if (!query) {
+        return;
+      }
+
+      var tickersDiv = $('#tickerlist');
+
+      var tickerDiv = $('<div class="tickers"></div>');
+      tickerDiv.append($('<u><b>' + name + '</b></u><br />'));
+      tickersDiv.append(tickerDiv);
+
+      // Create WebSocket connection.
+      const socket = new WebSocket('ws://localhost:3000?' + query);
+
+      // Connection opened
+      socket.addEventListener('open', function (event) {
+        socket.send('Socket Opened');
+      });
+
+      // Listen for messages
+      socket.addEventListener('message', function (event) {
+        var ticker = JSON.parse(event.data);
+
+        var symDiv = tickerDiv.find('.sym-' + ticker.sym);
+        if (symDiv.length === 0) {
+          symDiv = $('<div class="block sym-' + ticker.sym + '"><b/>');
+          tickerDiv.append(symDiv);
+        }
+
+        symDiv.animate({
+          'opacity': 1.00,
+        }, 10, function() {
+          symDiv.animate({
+            'opacity': .50,
+          }, 800);
+        });
+
+        symDiv.empty();
+        symDiv.append('<b>' + ticker.sym + '</b><br />');
+        symDiv.append(ticker.name + '<br />');
+        symDiv.append(ticker.industry + '<br />');
+        symDiv.append(ticker.price.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }) + '<br />');
+      });
+    }
+
+    function watchSymbol(symbol) {
+      return watchTicker('Ticker `' + symbol + '`',
+          's=' + symbol);
+    }
+
+    function watchIndustry(industry) {
+      return watchTicker('Industry `' + industry + '`',
+          'i=' + industry);
+    }
+
+    function watchArbi(valueStr) {
+      try {
+        var value;
+        eval('value = ' + valueStr + ';');
+        console.log(value);
+        watchTicker('Arbitrary `' + valueStr + '`',
+            'q=' + JSON.stringify(value));
+      } catch (e) {
+      }
+    }
+
+    $(window).on('load', function() {
+      watchSymbol('AAPL');
+      watchIndustry('Health Care');
+        watchArbi("{$key:'ticker-GOOG'}");
+        watchArbi("{name:'Amgen Inc'}");
+
+        $('#addone').on('click', function() {
+            var value = $('#addsymbol').val();
+            $('#addsymbol').val('');
+            watchSymbol(value);
+        });
+        $('#addmany').on('click', function() {
+          var value = $('#addindustry').val();
+          $('#addindustry').val('');
+          watchIndustry(value);
+        });
+        $('#addany').on('click', function() {
+          var value = $('#addarbi').val();
+          $('#addarbi').val('');
+        watchArbi(value);
+        });
+    });
+
+</script>
+</body>
+</html>
