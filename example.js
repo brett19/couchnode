@@ -1,49 +1,34 @@
-var couchbase = require("./lib/couchbase.js"),
-    http = require("http"),
-    fs = require("fs"),
-    util = require("util");
+'use strict';
 
-var port = 8080;
+var couchbase = require('./lib/couchbase.js');
 
-var configFilename = 'config.json';
-if (fs.existsSync(configFilename)) {
-  config = JSON.parse(fs.readFileSync(configFilename));
-} else {
-  console.log(configFilename + " not found. Using default");
-  config = { };
-}
-
-bucket = new couchbase.Connection(config, function(err) {
-  if (err) {
-    // For some reason we failed to make a connection to the
-    // Couchbase cluster.
-    throw err;
-  }
+// MCCluster has an identical API to Cluster, except that authentication
+//  is passed during instantiation of MCCluster, and the `authenticate`
+//  method throws an error.  Buckets opened via MCCluster have an identical
+//  API to a normally opened bucket.
+var cluster = new couchbase.MCCluster({
+  clusters: [
+    {
+      connstr: 'couchbase://172.23.123.251'
+    },
+    {
+      connstr: 'couchbase://localhost',
+      username: 'Administrator',
+      password: 'password'
+    }
+  ]
 });
 
-http.createServer(function(req, resp) {
-  bucket.get("hitcount", function(err, result) {
-    var doc = result.value;
-    if (!doc) {
-      doc = {count:0};
+var bucket = cluster.openBucket('test', function(err) {
+  console.log('bucket connected:', err);
+});
+
+setInterval(function() {
+  bucket.get('testdoc', function(err, res) {
+    if (err) {
+      console.log('fetch error:', err);
+    } else {
+      console.log('fetched', res.value);
     }
-
-    doc.count++;
-
-    resp.writeHead(200);
-    console.log("hits", doc.count);
-
-    bucket.set("hitcount", doc, {}, function(err) {
-      if (err) {
-          console.warn("Failed to store hit counter: " +
-                       util.inspect(err));
-          resp.end("<p>Internal server error. " +
-                   "Failed to store:</p><pre>" + util.inspect(err) +
-                   "</pre>");
-      } else {
-          resp.end('<p>The server has seen '+doc.count+' hits</p>');
-      }
-    });
-  })
-}).listen(port);
-console.log("listening on http://localhost:" + port);
+  });
+}, 1000);
