@@ -14,3 +14,7 @@ prebuilds/
 test.js
 .vscode/
 .idea/
+lib/
+tsconfig.json
+.prettierrc
+typedoc.json

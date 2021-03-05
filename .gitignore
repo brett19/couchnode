@@ -17,6 +17,10 @@ config.json
 # The original file after running astyle:
 *.orig
 
+# Ignore some IDE-specific folder
+/.idea
+/.vscode
+
 *~
 
 /.lock-wscript
@@ -28,3 +32,5 @@ builderror.log
 configcache.txt
 /coverage/
 /.nyc_output/
+/dist/
+
