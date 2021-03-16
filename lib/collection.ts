@@ -1,6 +1,6 @@
 import { Connection } from './connection'
 import { Scope } from './scope'
-import { Cas, NodeCallback, PromiseHelper } from './utilities'
+import { NodeCallback, PromiseHelper, Cas } from './utilities'
 import { Transcoder } from './transcoders'
 import {
   CounterResult,
@@ -33,6 +33,9 @@ import {
 import { SdUtils } from './sdutils'
 import { DurabilityLevel } from './generaltypes'
 
+/**
+ * @category Key-Value
+ */
 export interface GetOptions {
   project?: string[]
   withExpiry?: boolean
@@ -40,6 +43,9 @@ export interface GetOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface InsertOptions {
   expiry?: number
   durabilityLevel?: DurabilityLevel
@@ -49,6 +55,9 @@ export interface InsertOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface UpsertOptions {
   expiry?: number
   durabilityLevel?: DurabilityLevel
@@ -58,6 +67,9 @@ export interface UpsertOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface ReplaceOptions {
   expiry?: number
   cas?: Cas
@@ -68,6 +80,9 @@ export interface ReplaceOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface RemoveOptions {
   cas?: Cas
   durabilityLevel?: DurabilityLevel
@@ -76,16 +91,25 @@ export interface RemoveOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface GetAnyReplicaOptions {
   transcoder?: Transcoder
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface GetAllReplicasOptions {
   transcoder?: Transcoder
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface TouchOptions {
   durabilityLevel?: DurabilityLevel
   durabilityPersistTo?: number
@@ -93,24 +117,39 @@ export interface TouchOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface GetAndTouchOptions {
   transcoder?: Transcoder
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface GetAndLockOptions {
   transcoder?: Transcoder
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface UnlockOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface LookupInOptions {
   timeout?: number
 }
 
+/**
+ * @category Key-Value
+ */
 export interface MutateInOptions {
   expiry?: number
   cas?: Cas

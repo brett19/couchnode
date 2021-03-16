@@ -1,6 +1,9 @@
 import { MutationToken } from './mutationstate'
 import { Cas } from './utilities'
 
+/**
+ * @category Key-Value
+ */
 export class GetResult {
   content: any
   cas: Cas
@@ -26,6 +29,9 @@ export class GetResult {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class ExistsResult {
   exists: boolean
   cas: Cas
@@ -39,6 +45,9 @@ export class ExistsResult {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class MutationResult {
   cas: Cas
   token?: MutationToken
@@ -52,6 +61,9 @@ export class MutationResult {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class GetReplicaResult {
   content: any
   cas: Cas
@@ -77,6 +89,9 @@ export class GetReplicaResult {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class LookupInResultEntry {
   error: Error | null
   value?: any
@@ -90,6 +105,9 @@ export class LookupInResultEntry {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class LookupInResult {
   content: LookupInResultEntry[]
   cas: Cas
@@ -113,6 +131,9 @@ export class LookupInResult {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class MutateInResultEntry {
   value: any | undefined
 
@@ -124,6 +145,9 @@ export class MutateInResultEntry {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class MutateInResult {
   content: MutateInResultEntry[]
   cas: Cas
@@ -137,6 +161,9 @@ export class MutateInResult {
   }
 }
 
+/**
+ * @category Key-Value
+ */
 export class CounterResult {
   value: number
   cas: Cas

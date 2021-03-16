@@ -1,3 +1,4 @@
+/* eslint jsdoc/require-jsdoc: off */
 import * as qs from 'querystring'
 
 const partsMatcher = /((.*):\/\/)?(([^/?:]*)(:([^/?:@]*))?@)?([^/?]*)(\/([^?]*))?(\?(.*))?/

@@ -1,3 +1,6 @@
+/**
+ * @category Full Text Search
+ */
 export class SearchSort {
   protected _data: any
 

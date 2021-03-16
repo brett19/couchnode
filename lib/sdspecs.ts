@@ -1,7 +1,7 @@
 import binding, { CppSdCmdType, CppSdSpecFlag } from './binding'
 
 /**
- * @category Sub-Document
+ * @category Key-Value
  */
 export class LookupInMacro {
   /**
@@ -47,7 +47,7 @@ export class LookupInMacro {
 }
 
 /**
- * @category Sub-Document
+ * @category Key-Value
  */
 export class MutateInMacro {
   /**
@@ -73,7 +73,7 @@ export class MutateInMacro {
 }
 
 /**
- * @category Sub-Document
+ * @category Key-Value
  */
 export class LookupInSpec {
   /**
@@ -150,7 +150,7 @@ export class LookupInSpec {
 }
 
 /**
- * @category Sub-Document
+ * @category Key-Value
  */
 export class MutateInSpec {
   /**

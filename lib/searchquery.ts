@@ -31,6 +31,9 @@ function _unpackListArgs<T>(args: T[] | T[][]): T[] {
   return (args as any) as T[]
 }
 
+/**
+ * @category Full Text Search
+ */
 export class SearchQuery {
   protected _data: any
 

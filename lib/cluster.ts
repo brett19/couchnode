@@ -21,6 +21,7 @@ import {
   PingResult,
 } from './diagnosticstypes'
 import { ClusterClosedError, NeedOpenBucketError } from './errors'
+import { libLogger } from './logging'
 import { LogFunc, defaultLogger } from './logging'
 import { QueryExecutor } from './queryexecutor'
 import { QueryIndexManager } from './queryindexmanager'
@@ -419,8 +420,11 @@ export class Cluster {
     if (!conn) {
       conn = new Connection(connOpts)
 
-      conn.connect(() => {
-        // TODO(brett19): handle this error...
+      conn.connect((err: Error | null) => {
+        if (err) {
+          libLogger('failed to connect to bucket: %O', err)
+          conn.close(() => undefined)
+        }
       })
 
       this._conns[options.bucketName] = conn

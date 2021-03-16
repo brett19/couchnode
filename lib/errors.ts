@@ -1,19 +1,34 @@
 import './errorcontexts'
-import { ErrorContext, ValidErrorContext } from './errorcontexts'
+import {
+  ErrorContext,
+  KeyValueErrorContext,
+  ViewErrorContext,
+  QueryErrorContext,
+  SearchErrorContext,
+  AnalyticsErrorContext,
+  HttpErrorContext,
+} from './errorcontexts'
 
 /**
  * @category Error Handling
  */
 export class CouchbaseError extends Error {
   cause: Error | undefined
-  context: ValidErrorContext | undefined
+  context:
+    | KeyValueErrorContext
+    | ViewErrorContext
+    | QueryErrorContext
+    | SearchErrorContext
+    | AnalyticsErrorContext
+    | HttpErrorContext
+    | undefined
 
   constructor(message: string, cause?: Error, context?: ErrorContext) {
     super(message)
     this.name = this.constructor.name
 
     this.cause = cause
-    this.context = context as ValidErrorContext | undefined
+    this.context = context as any
   }
 }
 

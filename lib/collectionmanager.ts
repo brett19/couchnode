@@ -10,6 +10,9 @@ import {
 import { HttpExecutor, HttpMethod, HttpServiceType } from './httpexecutor'
 import { cbQsStringify, NodeCallback, PromiseHelper } from './utilities'
 
+/**
+ * @category Management
+ */
 export interface ICollectionSpec {
   name: string
   scopeName: string
@@ -26,22 +29,37 @@ class CollectionSpec {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface CreateCollectionOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllScopesOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropCollectionOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface CreateScopeOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropScopeOptions {
   timeout?: number
 }

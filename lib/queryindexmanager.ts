@@ -3,6 +3,9 @@ import { CouchbaseError, IndexExistsError, IndexNotFoundError } from './errors'
 import { HttpExecutor } from './httpexecutor'
 import { CompoundTimeout, NodeCallback, PromiseHelper } from './utilities'
 
+/**
+ * @category Management
+ */
 export class QueryIndex {
   name: string
   isPrimary: boolean
@@ -28,6 +31,9 @@ export class QueryIndex {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface CreateQueryIndexOptions {
   ignoreIfExists?: boolean
   numReplicas?: number
@@ -35,6 +41,9 @@ export interface CreateQueryIndexOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface CreatePrimaryQueryIndexOptions {
   name?: string
   ignoreIfExists?: boolean
@@ -43,25 +52,40 @@ export interface CreatePrimaryQueryIndexOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropQueryIndexOptions {
   ignoreIfNotExists?: boolean
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropPrimaryQueryIndexOptions {
   name?: string
   ignoreIfNotExists?: boolean
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllQueryIndexesOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface BuildQueryIndexOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface WatchQueryIndexOptions {
   watchPrimary?: boolean
 }

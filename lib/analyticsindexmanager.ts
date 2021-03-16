@@ -9,10 +9,31 @@ import {
 import { HttpExecutor, HttpMethod, HttpServiceType } from './httpexecutor'
 import { NodeCallback, PromiseHelper } from './utilities'
 
+/**
+ * AnalyticsDataset represents a specific dataset configuration for the
+ * analytics service.
+ *
+ * @category Management
+ */
 export class AnalyticsDataset {
+  /**
+   * The name of the dataset.
+   */
   name: string
+
+  /**
+   * The name of the dataverse that this dataset exists within.
+   */
   dataverseName: string
+
+  /**
+   * The name of the link that is associated with this dataset.
+   */
   linkName: string
+
+  /**
+   * The name of the bucket that this dataset includes.
+   */
   bucketName: string
 
   /**
@@ -26,10 +47,31 @@ export class AnalyticsDataset {
   }
 }
 
+/**
+ * AnalyticsIndex represents a specific index configuration for the
+ * analytics service.
+ *
+ * @category Management
+ */
 export class AnalyticsIndex {
+  /**
+   * The name of the index.
+   */
   name: string
+
+  /**
+   * The name of the dataset this index belongs to.
+   */
   datasetName: string
+
+  /**
+   * The name of the dataverse this index belongs to.
+   */
   dataverseName: string
+
+  /**
+   * Whether or not this is a primary index or not.
+   */
   isPrimary: boolean
 
   /**
@@ -43,64 +85,180 @@ export class AnalyticsIndex {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface CreateAnalyticsDataverseOptions {
+  /**
+   * Whether or not the call should ignore the dataverse already existing when
+   * determining whether the call was successful.
+   */
   ignoreIfExists?: boolean
+
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropAnalyticsDataverseOptions {
+  /**
+   * Whether or not the call should ignore the dataverse not existing when
+   * determining whether the call was successful.
+   */
   ignoreIfNotExists?: boolean
+
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface CreateAnalyticsDatasetOptions {
+  /**
+   * Whether or not the call should ignore the dataset already existing when
+   * determining whether the call was successful.
+   */
   ignoreIfExists?: boolean
+
+  /**
+   * The name of the dataverse the dataset should belong to.
+   */
   dataverseName?: string
+
+  /**
+   * A conditional expression to limit the indexes scope.
+   */
   condition?: string
+
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropAnalyticsDatasetOptions {
+  /**
+   * Whether or not the call should ignore the dataset already existing when
+   * determining whether the call was successful.
+   */
   ignoreIfNotExists?: boolean
+
+  /**
+   * The name of the dataverse the dataset belongs to.
+   */
   dataverseName?: string
+
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllAnalyticsDatasetsOptions {
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface CreateAnalyticsIndexOptions {
+  /**
+   * Whether or not the call should ignore the dataverse not existing when
+   * determining whether the call was successful.
+   */
   ignoreIfExists?: boolean
+
+  /**
+   * The name of the dataverse the index should belong to.
+   */
   dataverseName?: string
+
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropAnalyticsIndexOptions {
+  /**
+   * Whether or not the call should ignore the index already existing when
+   * determining whether the call was successful.
+   */
   ignoreIfNotExists?: boolean
+
+  /**
+   * The name of the dataverse the index belongs to.
+   */
   dataverseName?: string
+
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllAnalyticsIndexesOptions {
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface ConnectAnalyticsLinkOptions {
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DisconnectAnalyticsLinkOptions {
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetPendingAnalyticsMutationsOptions {
+  /**
+   * The timeout for this operation, represented in milliseconds.
+   */
   timeout?: number
 }
 
 /**
  * AnalyticsIndexManager provides an interface for performing management
- * operations against the analytics indexes for the cluster.
+ * operations against the analytics service of the cluster.
  *
  * @category Management
  */
@@ -114,10 +272,20 @@ export class AnalyticsIndexManager {
     this._cluster = cluster
   }
 
+  /**
+   * @internal
+   */
   private get _http() {
     return new HttpExecutor(this._cluster._getClusterConn())
   }
 
+  /**
+   * createDataverse creates a new dataverse.
+   *
+   * @param dataverseName The name of the dataverse to create.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async createDataverse(
     dataverseName: string,
     options?: CreateAnalyticsDataverseOptions,
@@ -158,6 +326,13 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * dropDataverse drops a previously created dataverse.
+   *
+   * @param dataverseName The name of the dataverse to drop.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async dropDataverse(
     dataverseName: string,
     options?: DropAnalyticsDataverseOptions,
@@ -198,6 +373,14 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * createDataset creates a new dataset.
+   *
+   * @param bucketName The name of the bucket to create this dataset of.
+   * @param datasetName The name of the new dataset.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async createDataset(
     bucketName: string,
     datasetName: string,
@@ -249,6 +432,13 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * dropDataset drops a previously created dataset.
+   *
+   * @param datasetName The name of the dataset to drop.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async dropDataset(
     datasetName: string,
     options?: DropAnalyticsDatasetOptions,
@@ -293,6 +483,12 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * getAllDatasets returns a list of all existing datasets.
+   *
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async getAllDatasets(
     options?: GetAllAnalyticsDatasetsOptions,
     callback?: NodeCallback<AnalyticsDataset[]>
@@ -329,6 +525,15 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * createIndex creates a new index.
+   *
+   * @param datasetName The name of the dataset to create this index on.
+   * @param indexName The name of index to create.
+   * @param fields A map of fields that the index should contain.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async createIndex(
     datasetName: string,
     indexName: string,
@@ -377,6 +582,14 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * dropIndex will drop a previously created index.
+   *
+   * @param datasetName The name of the dataset containing the index to drop.
+   * @param indexName The name of the index to drop.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async dropIndex(
     datasetName: string,
     indexName: string,
@@ -415,6 +628,12 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * getAllIndexes returns a list of all existing indexes.
+   *
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async getAllIndexes(
     options?: GetAllAnalyticsIndexesOptions,
     callback?: NodeCallback<AnalyticsIndex[]>
@@ -451,6 +670,13 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * connectLink connects a not yet connected link.
+   *
+   * @param linkName The name of the link to connect.
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async connectLink(
     linkName: string,
     options?: ConnectAnalyticsLinkOptions,
@@ -475,6 +701,13 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * disconnectLink disconnects a previously connected link.
+   *
+   * @param linkName The name of the link to disconnect
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async disconnectLink(
     linkName: string,
     options?: DisconnectAnalyticsLinkOptions,
@@ -499,6 +732,12 @@ export class AnalyticsIndexManager {
     }, callback)
   }
 
+  /**
+   * getPendingMutations returns a list of all pending mutations.
+   *
+   * @param options Optional parameters for this operation.
+   * @param callback A node-style callback to be invoked after execution.
+   */
   async getPendingMutations(
     options?: GetPendingAnalyticsMutationsOptions,
     callback?: NodeCallback<{ [k: string]: { [k: string]: number } }>

@@ -5,6 +5,9 @@ import * as errctxs from './errorcontexts'
 import * as errs from './errors'
 import { DurabilityLevel } from './generaltypes'
 
+/**
+ * @internal
+ */
 export function duraLevelToCppDuraMode(
   mode: DurabilityLevel | undefined
 ): CppDurabilityMode | undefined {
@@ -26,15 +29,27 @@ export function duraLevelToCppDuraMode(
   throw new errs.InvalidDurabilityLevel()
 }
 
+/**
+ * Wraps an error which has occurred within libcouchbase.
+ */
 export class LibcouchbaseError extends Error {
+  /**
+   * The error code that occurred.
+   */
   code: number
 
+  /**
+   * @internal
+   */
   constructor(code: number) {
     super('libcouchbase error ' + code)
     this.code = code
   }
 }
 
+/**
+ * @internal
+ */
 export function translateCppContext(err: CppError | null): ErrorContext | null {
   if (!err) {
     return null
@@ -97,6 +112,9 @@ export function translateCppContext(err: CppError | null): ErrorContext | null {
   return context
 }
 
+/**
+ * @internal
+ */
 export function translateCppError(err: CppError | null): Error | null {
   if (!err) {
     return null

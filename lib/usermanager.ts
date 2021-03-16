@@ -3,6 +3,9 @@ import { CouchbaseError, GroupNotFoundError, UserNotFoundError } from './errors'
 import { HttpExecutor, HttpMethod, HttpServiceType } from './httpexecutor'
 import { cbQsStringify, NodeCallback, PromiseHelper } from './utilities'
 
+/**
+ * @category Management
+ */
 export class Origin {
   type: string
   name: string
@@ -26,6 +29,9 @@ export class Origin {
   }
 }
 
+/**
+ * @category Management
+ */
 export class Role {
   name: string
   bucket: string | undefined
@@ -74,6 +80,9 @@ export class Role {
   }
 }
 
+/**
+ * @category Management
+ */
 export class RoleAndDescription extends Role {
   displayName: string
   description: string
@@ -99,6 +108,9 @@ export class RoleAndDescription extends Role {
   }
 }
 
+/**
+ * @category Management
+ */
 export class RoleAndOrigin extends Role {
   origins: Origin[]
 
@@ -128,6 +140,9 @@ export class RoleAndOrigin extends Role {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface IUser {
   username: string
   displayName?: string
@@ -136,6 +151,9 @@ export interface IUser {
   password?: string
 }
 
+/**
+ * @category Management
+ */
 export class User implements IUser {
   username: string
   displayName: string
@@ -207,6 +225,9 @@ export class User implements IUser {
   }
 }
 
+/**
+ * @category Management
+ */
 export class UserAndMetadata extends User {
   domain: string
   effectiveRoles: RoleAndOrigin[]
@@ -255,6 +276,9 @@ export class UserAndMetadata extends User {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface IGroup {
   name: string
   description?: string
@@ -262,6 +286,9 @@ export interface IGroup {
   ldapGroupReference?: string
 }
 
+/**
+ * @category Management
+ */
 export class Group {
   name: string
   description: string
@@ -314,46 +341,76 @@ export class Group {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface GetUserOptions {
   domainName?: string
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllUsersOptions {
   domainName?: string
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface UpsertUserOptions {
   domainName?: string
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropUserOptions {
   domainName?: string
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetRolesOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetGroupOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllGroupsOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface UpsertGroupOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropGroupOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export class UserManager {
   private _cluster: Cluster
 

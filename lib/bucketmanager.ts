@@ -13,17 +13,26 @@ import {
   PromiseHelper,
 } from './utilities'
 
+/**
+ * @category Management
+ */
 export const enum ConflictResolutionType {
   Timestamp = 'lww',
   SequenceNumber = 'seqno',
 }
 
+/**
+ * @category Management
+ */
 export const enum BucketType {
   Couchbase = 'membase',
   Memcached = 'memcached',
   Ephemeral = 'ephemeral',
 }
 
+/**
+ * @category Management
+ */
 export const enum EvictionPolicy {
   FullEviction = 'fullEviction',
   ValueOnly = 'valueOnly',
@@ -31,12 +40,18 @@ export const enum EvictionPolicy {
   NoEviction = 'noEviction',
 }
 
+/**
+ * @category Management
+ */
 export const enum CompressionMode {
   Off = 'off',
   Passive = 'passive',
   Active = 'active',
 }
 
+/**
+ * @category Management
+ */
 export interface IBucketSettings {
   name: string
   flushEnabled: boolean
@@ -60,6 +75,9 @@ export interface IBucketSettings {
   durabilityMinLevel: string
 }
 
+/**
+ * @category Management
+ */
 export class BucketSettings implements IBucketSettings {
   name: string
   flushEnabled: boolean
@@ -115,6 +133,9 @@ export class BucketSettings implements IBucketSettings {
   }
 }
 
+/**
+ * @category Management
+ */
 export interface ICreateBucketSettings extends IBucketSettings {
   conflictResolutionType: ConflictResolutionType | string
 }
@@ -145,26 +166,44 @@ class CreateBucketSettings
   }
 }
 
+/**
+ * @category Management
+ */
 export interface CreateBucketOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface UpdateBucketOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropBucketOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetBucketOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllBucketsOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface FlushBucketOptions {
   timeout?: number
 }

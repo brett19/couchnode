@@ -35,6 +35,7 @@
     "chai": "^4.2.0",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-jsdoc": "^32.3.0",
     "eslint-plugin-mocha": "^8.1.0",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^8.2.1",
@@ -42,8 +43,6 @@
     "prebuild": "^10.0.1",
     "prettier": "^2.2.1",
     "semver": "^7.3.4",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.20.28",
     "typescript": "^4.1.5",
     "uuid": "^8.3.2"
@@ -62,7 +61,7 @@
     "build": "node-gyp build && tsc",
     "rebuild": "node-gyp rebuild && tsc",
     "prebuild": "prebuild --verbose --strip",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "eslint ./lib/authenticators.ts",
     "builddocs": "typedoc"
   }
 }

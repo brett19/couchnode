@@ -10,7 +10,27 @@ export class DesignDocumentView {
   map: string
   reduce: string | undefined
 
-  constructor(data: { map: string; reduce?: string }) {
+  constructor(data: { map: string; reduce?: string })
+
+  /**
+   * @deprecated
+   */
+  constructor(map: string, reduce?: string)
+
+  /**
+   * @internal
+   */
+  constructor(...args: any[]) {
+    let data
+    if (typeof args[0] === 'string' || typeof args[0] === 'function') {
+      data = {
+        map: args[0],
+        reduce: args[1],
+      }
+    } else {
+      data = args[0]
+    }
+
     this.map = data.map
     this.reduce = data.reduce
   }
@@ -33,7 +53,27 @@ export class DesignDocument {
   constructor(data: {
     name: string
     views?: { [viewName: string]: DesignDocumentView }
-  }) {
+  })
+
+  /**
+   * @deprecated
+   */
+  constructor(name: string, views: { [viewName: string]: DesignDocumentView })
+
+  /**
+   * @internal
+   */
+  constructor(...args: any[]) {
+    let data
+    if (typeof args[0] === 'string') {
+      data = {
+        name: args[0],
+        views: args[1],
+      }
+    } else {
+      data = args[0]
+    }
+
     this.name = data.name
     this.views = data.views || {}
   }
@@ -213,12 +253,7 @@ export class ViewIndexManager {
       const designDocData = {
         views: designDoc.views,
       }
-      const encodedData = JSON.stringify(designDocData, (k, v) => {
-        if (v instanceof Function) {
-          return v.toString()
-        }
-        return v
-      })
+      const encodedData = JSON.stringify(designDocData)
 
       const res = await this._http.request({
         type: HttpServiceType.Views,

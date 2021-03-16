@@ -1,7 +1,15 @@
+import binding from './binding'
 import { Cluster, ConnectOptions } from './cluster'
 import { NodeCallback } from './utilities'
 
 /**
+ * connect provides an entrypoint into the library.  Connecting to the cluster
+ * and exposing the various services and features.
+ *
+ * @param connStr The connection string to use to connect to the cluster.
+ * @param options Optional parameters for this operation.
+ * @param callback A node-style callback to be invoked after execution.
+ *
  * @category Core
  */
 export async function connect(
@@ -11,6 +19,12 @@ export async function connect(
 ): Promise<Cluster> {
   return Cluster.connect(connStr, options, callback)
 }
+
+/**
+ * lcbVersion exposes the underlying libcouchbase library version
+ * that is being used by the SDK to perform I/O.
+ */
+export const lcbVersion: string = binding.lcbVersion
 
 export * from './analyticsindexmanager'
 export * from './analyticstypes'
@@ -44,3 +58,5 @@ export * from './usermanager'
 export * from './viewexecutor'
 export * from './viewindexmanager'
 export * from './viewtypes'
+
+export { Cas, NodeCallback } from './utilities'

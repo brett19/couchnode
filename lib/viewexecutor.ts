@@ -1,3 +1,4 @@
+/* eslint jsdoc/require-jsdoc: off */
 import { CppViewQueryFlags } from './binding'
 import binding from './binding'
 import { Connection } from './connection'

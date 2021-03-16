@@ -1,5 +1,8 @@
 import { Cas } from './utilities'
 
+/**
+ * @category Error Handling
+ */
 export class ErrorContext {}
 
 /**
@@ -165,11 +168,3 @@ export class HttpErrorContext extends ErrorContext {
     this.response_body = data.response_body
   }
 }
-
-export type ValidErrorContext =
-  | KeyValueErrorContext
-  | ViewErrorContext
-  | QueryErrorContext
-  | SearchErrorContext
-  | AnalyticsErrorContext
-  | HttpErrorContext

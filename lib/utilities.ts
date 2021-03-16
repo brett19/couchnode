@@ -9,6 +9,9 @@ export interface NodeCallback<T> {
   (err: Error | null, result: T | null): void
 }
 
+/**
+ * @internal
+ */
 export class PromiseHelper {
   static wrapAsync<T, U extends Promise<T>>(
     fn: () => U,
@@ -52,6 +55,9 @@ export class PromiseHelper {
   }
 }
 
+/**
+ * @internal
+ */
 export class CompoundTimeout {
   private _start: [number, number]
   private _timeout: number | undefined
@@ -86,6 +92,9 @@ export class CompoundTimeout {
   }
 }
 
+/**
+ * @internal
+ */
 export function msToGoDurationStr(ms?: number): string | undefined {
   if (ms === undefined) {
     return undefined
@@ -94,6 +103,9 @@ export function msToGoDurationStr(ms?: number): string | undefined {
   return `${ms}ms`
 }
 
+/**
+ * @internal
+ */
 export function goDurationStrToMs(str?: string): number | undefined {
   if (str === undefined) {
     return undefined
@@ -107,6 +119,9 @@ export function goDurationStrToMs(str?: string): number | undefined {
   return duration
 }
 
+/**
+ * @internal
+ */
 export function duraLevelToNsServerStr(
   level: DurabilityLevel | string | undefined
 ): string | undefined {
@@ -131,6 +146,9 @@ export function duraLevelToNsServerStr(
   }
 }
 
+/**
+ * @internal
+ */
 export function cbQsStringify(values: { [key: string]: any }): string {
   const cbValues: { [key: string]: any } = {}
   for (const i in values) {

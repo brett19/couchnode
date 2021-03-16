@@ -1,3 +1,4 @@
+/* eslint jsdoc/require-jsdoc: off */
 import binding, { CppConnection, CppLogFunc, CppError } from './binding'
 import { translateCppError } from './bindingutilities'
 import { ConnSpec } from './connspec'

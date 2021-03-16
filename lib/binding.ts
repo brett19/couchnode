@@ -1,3 +1,4 @@
+/* eslint jsdoc/require-jsdoc: off */
 import bindings from 'bindings'
 
 export const enum CppReplicaMode {}

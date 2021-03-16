@@ -1,3 +1,4 @@
+/* eslint jsdoc/require-jsdoc: off */
 import binding from './binding'
 import { Connection } from './connection'
 import { HttpErrorContext } from './errorcontexts'

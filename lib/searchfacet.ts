@@ -1,3 +1,6 @@
+/**
+ * @category Full Text Search
+ */
 export class SearchFacet {
   protected _data: any
 

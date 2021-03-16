@@ -11,11 +11,17 @@ const CF_RAW = 0x03 << 24
 const CF_UTF8 = 0x04 << 24
 const CF_MASK = 0xff << 24
 
+/**
+ * @category Key-Value
+ */
 export interface Transcoder {
   encode(value: any): [Buffer, number]
   decode(bytes: Buffer, flags: number): any
 }
 
+/**
+ * @category Key-Value
+ */
 export class DefaultTranscoder implements Transcoder {
   encode(value: any): [Buffer, number] {
     // If its a buffer, write that directly as raw.

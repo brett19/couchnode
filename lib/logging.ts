@@ -31,13 +31,17 @@ export interface LogFunc {
 }
 
 const libLogger = debug('couchnode')
+export { libLogger }
+
+const lcbLogger = libLogger.extend('lcb')
+
 const severityLoggers = {
-  [LogSeverity.Trace]: libLogger.extend('trace'),
-  [LogSeverity.Debug]: libLogger.extend('debug'),
-  [LogSeverity.Info]: libLogger.extend('info'),
-  [LogSeverity.Warn]: libLogger.extend('warn'),
-  [LogSeverity.Error]: libLogger.extend('error'),
-  [LogSeverity.Fatal]: libLogger.extend('fatal'),
+  [LogSeverity.Trace]: lcbLogger.extend('trace'),
+  [LogSeverity.Debug]: lcbLogger.extend('debug'),
+  [LogSeverity.Info]: lcbLogger.extend('info'),
+  [LogSeverity.Warn]: lcbLogger.extend('warn'),
+  [LogSeverity.Error]: lcbLogger.extend('error'),
+  [LogSeverity.Fatal]: lcbLogger.extend('fatal'),
 }
 function _logSevToLogger(severity: LogSeverity) {
   // We cache our loggers above since some versions of the debug library
@@ -49,7 +53,7 @@ function _logSevToLogger(severity: LogSeverity) {
 
   // We still call extend if there is an unexpected severity, this shouldn't
   // really happen though...
-  return libLogger.extend('sev' + severity)
+  return lcbLogger.extend('sev' + severity)
 }
 
 function logToDebug(data: LogData): void {

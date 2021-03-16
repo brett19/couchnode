@@ -3,52 +3,110 @@ import { IndexNotFoundError } from './errors'
 import { HttpExecutor, HttpMethod, HttpServiceType } from './httpexecutor'
 import { NodeCallback, PromiseHelper } from './utilities'
 
-export type SearchIndex = any
+/**
+ * @category Management
+ */
+export interface ISearchIndex {
+  name: string
+}
 
+/**
+ * This class is currently incomplete and must be casted to `any` in
+ * TypeScript to be used.
+ *
+ * @category Management
+ */
+export class SearchIndex {
+  name: string
+
+  /**
+   * @internal
+   */
+  constructor(data: SearchIndex) {
+    this.name = data.name
+  }
+}
+
+/**
+ * @category Management
+ */
 export interface GetSearchIndexOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetAllSearchIndexesOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface UpsertSearchIndexOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DropSearchIndexOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface GetSearchIndexedDocumentsCountOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface PauseSearchIngestOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface ResumeSearchIngestOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface AllowSearchQueryingOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface DisallowSearchQueryingOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface FreezeSearchPlanOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface UnfreezeSearchPlanOptions {
   timeout?: number
 }
 
+/**
+ * @category Management
+ */
 export interface AnalyzeSearchDocumentOptions {
   timeout?: number
 }
@@ -133,7 +191,7 @@ export class SearchIndexManager {
   }
 
   async upsertIndex(
-    indexDefinition: SearchIndex,
+    indexDefinition: ISearchIndex,
     options?: UpsertSearchIndexOptions,
     callback?: NodeCallback<void>
   ): Promise<void> {
